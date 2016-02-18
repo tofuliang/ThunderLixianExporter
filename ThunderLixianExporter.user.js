@@ -44,7 +44,7 @@ TLE.exporter = {
         var filepath = TLE.safe_title(file.title);
         if (task.tasktype == 0 && task.filelist.length > 1)
           filepath = TLE.safe_title(task.taskname) + "/" + TLE.safe_title(file.title.replace(/\\+\*?/g,"/"));
-        str += "aria2c -c -s10 -x10 --out "+TLE.escape_command(filepath)+" --header 'Cookie: gdriveid="+todown.gdriveid+";' '"+file.downurl+"'\n"; 
+        str += "aria2c -c -s15 -x15 --stream-piece-selector=inorder --file-allocation=none --out "+TLE.escape_command(filepath)+" --header 'Cookie: gdriveid="+todown.gdriveid+";' '"+file.downurl+"'\n"; 
       });
     });
     TLE.text_pop("aria2 download command", str);
