@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       ThunderLixianExporter
 // @namespace  http://dynamic.cloud.vip.xunlei.com/
-// @version    0.78.3
+// @version    0.78.4
 // @description  export thunder lixian url to aria2/wget
 // @include      http://dynamic.cloud.vip.xunlei.com/user_task*
 // @include      http://lixian.vip.xunlei.com/lx3_task.html*
@@ -47,7 +47,7 @@ function tle_wrapper() {
                 $.each(task.filelist, function (l, file) {
                     if (!file.downurl) return;
                     var filepath = TLE.safe_title(file.title);
-                    if (task.tasktype === 0 && task.filelist.length > 1)
+                    if ((task.tasktype === 0 || task.tasktype  === '0') && task.filelist.length > 1)
                         filepath = TLE.safe_title(task.taskname) + "/" + TLE.safe_title(file.title.replace(/\\+\*?/g, "/"));
                     str += "aria2c -c -s15 -x15 --stream-piece-selector=inorder --file-allocation=none --out " + TLE.escape_command(filepath) + " --header 'Cookie: gdriveid=" + todown.gdriveid + ";' '" + file.downurl + "'\n";
                 });
@@ -77,7 +77,7 @@ function tle_wrapper() {
                     $.each(task.filelist, function (l, file) {
                         if (!file.downurl) return;
                         var filepath = TLE.safe_title(file.title);
-                        if (task.tasktype === 0 && task.filelist.length > 1)
+                        if ((task.tasktype === 0 || task.tasktype  === '0') && task.filelist.length > 1)
                             filepath = TLE.safe_title(task.taskname) + "/" + TLE.safe_title(file.title.replace(/\\+\*?/g, "/"));
                         aria2.addUri(file.downurl, {out: filepath, header: 'Cookie: gdriveid=' + todown.gdriveid});
                     });
@@ -95,7 +95,7 @@ function tle_wrapper() {
                 $.each(task.filelist, function (l, file) {
                     if (!file.downurl) return;
                     var filepath = TLE.safe_title(file.title);
-                    if (task.tasktype === 0 && task.filelist.length > 1)
+                    if ((task.tasktype === 0 || task.tasktype  === '0') && task.filelist.length > 1)
                         filepath = TLE.safe_title(task.taskname) + "/" + TLE.safe_title(file.title.replace(/\\+\*?/g, "/"));
                     str += file.downurl + '\r\n  out=' + filepath + '\r\n  header=Cookie: gdriveid=' + todown.gdriveid + '\r\n  continue=true\r\n  max-connection-per-server=5\r\n  split=10\r\n  parameterized-uri=true\r\n\r\n';
                 });
@@ -248,7 +248,7 @@ function tle_wrapper() {
                 var d_tasktype = $("#d_tasktype" + taskid).val();
                 var d_flag = $("#dflag" + taskid).val();
                 if (d_flag != 4 && d_status == 2) {
-                    if (d_tasktype === 0) {
+                    if ((d_tasktype === 0 || d_tasktype  === '0')) {
                         bt_task_list.push(taskid);
                     } else {
                         normal_task_list.push(taskid);
@@ -493,7 +493,7 @@ function tle_wrapper() {
 
                 + '.rwbtn.ic_redownloca { display: none !important; }'
                 + '.menu { width: 700px !important; }'
-                // for thunder css
+                    // for thunder css
                 + '.rwset {width:530px;}'
                 + '.json_rpc_title {display: block; float: left; line-height: 34px;}'
                 + '.add_json_rpc {margin-left: 260px !important;}'
@@ -541,7 +541,7 @@ function tle_wrapper() {
                 $(".TLE_setting_ck").each(function (n, e) {
                     if (e.checked) enabled_exporter.push(e.name.replace(/^TLE_ck_/, ""));
                 });
-                var config_str = (enabled_exporter.length === 0) ? "_" : enabled_exporter.join("|");
+                var config_str = ((enabled_exporter.length === 0 || enabled_exporter.length  === '0')) ? "_" : enabled_exporter.join("|");
                 var jsonrpc_path = (function () {
                     var jsonrpcs = [];
                     $("input[name=TLE_aria2_jsonrpc\\[\\]]").each(function (index, html) {
@@ -733,7 +733,7 @@ function tle_lx3_wrapper() {
                 $.each(task.filelist, function (l, file) {
                     if (!file.downurl) return;
                     var filepath = TLE.safe_title(file.title);
-                    if (task.tasktype === 0 && task.filelist.length > 1)
+                    if ((task.tasktype === 0 || task.tasktype  === '0') && task.filelist.length > 1)
                         filepath = TLE.safe_title(task.taskname) + "/" + TLE.safe_title(file.title.replace(/\\+\*?/g, "/"));
                     str += "aria2c -c -s10 -x10 --out " + TLE.escape_command(filepath) + " --header 'Cookie: gdriveid=" + todown.gdriveid + ";' '" + file.downurl + "'\n";
                 });
@@ -759,7 +759,7 @@ function tle_lx3_wrapper() {
                     $.each(task.filelist, function (l, file) {
                         if (!file.downurl) return;
                         var filepath = TLE.safe_title(file.title);
-                        if (task.tasktype === 0 && task.filelist.length > 1)
+                        if ((task.tasktype === 0 || task.tasktype  === '0') && task.filelist.length > 1)
                             filepath = TLE.safe_title(task.taskname) + "/" + TLE.safe_title(file.title.replace(/\\+\*?/g, "/"));
                         aria2.addUri(file.downurl, {out: filepath, header: 'Cookie: gdriveid=' + todown.gdriveid});
                     });
@@ -776,7 +776,7 @@ function tle_lx3_wrapper() {
                 $.each(task.filelist, function (l, file) {
                     if (!file.downurl) return;
                     var filepath = TLE.safe_title(file.title);
-                    if (task.tasktype === 0 && task.filelist.length > 1)
+                    if ((task.tasktype === 0 || task.tasktype  === '0') && task.filelist.length > 1)
                         filepath = TLE.safe_title(task.taskname) + "/" + TLE.safe_title(file.title.replace(/\\+\*?/g, "/"));
                     str += file.downurl + '\r\n  out=' + filepath + '\r\n  header=Cookie: gdriveid=' + todown.gdriveid + '\r\n  continue=true\r\n  max-connection-per-server=5\r\n  split=10\r\n  parameterized-uri=true\r\n\r\n';
                 });
@@ -1059,7 +1059,7 @@ function tle_lx3_wrapper() {
                     $(".TLE_setting_ck").each(function (n, e) {
                         if (e.checked) enabled_exporter.push(e.name.replace(/^TLE_ck_/, ""));
                     });
-                    var config_str = (enabled_exporter.length === 0) ? "_" : enabled_exporter.join("|");
+                    var config_str = ((enabled_exporter.length === 0 || enabled_exporter.length  === '0')) ? "_" : enabled_exporter.join("|");
                     var jsonrpc_path = $("#TLE_aria2_jsonrpc").val();
                     if (TLE.getConfig("TLE_exporter") != config_str || TLE.getConfig("TLE_aria2_jsonrpc") != jsonrpc_path) {
                         TLE.setConfig("TLE_exporter", config_str);
@@ -1093,7 +1093,7 @@ function tle_lx3_wrapper() {
             window.thunder_download = function (taskid, type) {
                 TLE.todown = {};
                 TLE.todown.gdriveid = $("#cok").val() || getCookie("gdriveid");
-                if (type === 1) {
+                if ((type === 1 || type  === '1')) {
                     // bt_down_one
                     var taskinfo = {
                         taskname: $("#bt_info_list .title .w").text(),
@@ -1138,7 +1138,7 @@ function tle_lx3_wrapper() {
                     var d_tasktype = parseInt($("#d_tasktype" + taskid).val());
                     var d_flag = $("#dflag" + taskid).val();
                     if (d_flag != 4 && d_status == 2) {
-                        if (d_tasktype === 0) {
+                        if ((d_tasktype === 0 || d_tasktype  === '0')) {
                             bt_task_list.push(taskid);
                         } else {
                             normal_task_list.push(taskid);
